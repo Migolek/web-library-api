@@ -1,0 +1,21 @@
+{
+  "parser": "babel-eslint",
+  "env": {
+    "node": true
+  },
+  "extends": "airbnb",
+  "rules": {
+    "import/extensions": 0,
+    "key-spacing": ["error", {
+      "mode": "minimum"
+    }],
+    "no-plusplus": ["off"],
+    "no-param-reassign": ["error", {
+      "props": false
+    }],
+    "no-console": ["off"],
+    "no-throw-literal": ["off"],
+    "no-unused-vars": "warn",
+    "no-extra-semi": "off"
+  }
+}

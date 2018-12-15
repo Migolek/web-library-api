@@ -1,4 +1,4 @@
-import movies from './movies';
+import movies from './roles';
 
 export default [
   ...movies,

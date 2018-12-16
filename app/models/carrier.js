@@ -1,29 +1,28 @@
+import dictionary from '../extensions/dictionary';
+
 export default function (sequelize, DataTypes) {
+  const config = dictionary('carrier');
   const carrier = sequelize.define('carrier', {
-    ID: {
+    [config.ID]: {
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true,
       autoIncrement: true,
     },
-    Typ: {
+    [config.type]: {
       type: DataTypes.STRING,
       allowNull: false,
     },
   }, {
-    tableName: 'Nosnik',
+    tableName: config.tableName,
     timestamps: false,
   });
 
-  // graph.associate = (models) => {
-  //   graph.hasMany(models.people, {
-  //     foreignKey: 'graphID'
-  //   });
-  //   graph.belongsTo(models.users, {
-  //     as: 'user',
-  //     foreignKey: 'userID'
-  //   });
-  // };
+  carrier.associate = (models) => {
+    carrier.hasMany(models.warehouse, {
+      foreignKey: dictionary('warehouse').carrierID,
+    });
+  };
 
   return carrier;
 };

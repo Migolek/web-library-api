@@ -1,41 +1,46 @@
+import dictionary from '../extensions/dictionary';
+
 export default function (sequelize, DataTypes) {
+  const config = dictionary('opus');
   const opus = sequelize.define('opus', {
-    ID: {
+    [config.ID]: {
       type: DataTypes.INTEGER,
       primaryKey: true,
       allowNull: false,
       autoIncrement: true,
     },
-    Tytul: {
+    [config.title]: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    RokProdukcji: {
+    [config.yearOfProduction]: {
       type: DataTypes.DATE,
       allowNull: false,
     },
-    Rezyser: {
+    [config.director]: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    Kraj: {
+    [config.country]: {
       type: DataTypes.STRING,
       allowNull: false,
     },
   }, {
-    tableName: 'Dzielo',
+    tableName: config.tableName,
     timestamps: false,
   });
 
-  // graph.associate = (models) => {
-  //   graph.hasMany(models.people, {
-  //     foreignKey: 'graphID'
-  //   });
-  //   graph.belongsTo(models.users, {
-  //     as: 'user',
-  //     foreignKey: 'userID'
-  //   });
-  // };
+  opus.associate = (models) => {
+    opus.hasMany(models.cast, {
+      foreignKey: dictionary('cast').opusID,
+    });
+    opus.hasMany(models.opusType, {
+      foreignKey: dictionary('opusType').opusID,
+    });
+    opus.hasMany(models.warehouse, {
+      foreignKey: dictionary('warehouse').opusID,
+    });
+  };
 
   return opus;
 };

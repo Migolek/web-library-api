@@ -1,41 +1,40 @@
+import dictionary from '../extensions/dictionary';
+
 export default function (sequelize, DataTypes) {
+  const config = dictionary('actor');
   const actor = sequelize.define('actor', {
-    ID: {
+    [config.ID]: {
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true,
       autoIncrement: true,
     },
-    Imie: {
+    [config.firstName]: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    Nazwisko: {
+    [config.lastName]: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    DataUrodzenia: {
+    [config.dateOfBirth]: {
       type: DataTypes.DATE,
       allowNull: true,
     },
-    Wzrost: {
+    [config.growth]: {
       type: DataTypes.INTEGER,
       allowNull: true,
     },
   }, {
-    tableName: 'Aktor',
+    tableName: config.tableName,
     timestamps: false,
   });
 
-  // graph.associate = (models) => {
-  //   graph.hasMany(models.people, {
-  //     foreignKey: 'graphID'
-  //   });
-  //   graph.belongsTo(models.users, {
-  //     as: 'user',
-  //     foreignKey: 'userID'
-  //   });
-  // };
+  actor.associate = (models) => {
+    actor.hasMany(models.cast, {
+      foreignKey: dictionary('cast').actorID,
+    });
+  };
 
   return actor;
 };

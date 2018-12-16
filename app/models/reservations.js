@@ -1,27 +1,31 @@
+import dictionary from '../extensions/dictionary';
+
 export default function (sequelize, DataTypes) {
+  const config = dictionary('reservations');
   const reservations = sequelize.define('reservations', {
-    UzytkownikID: {
+    [config.userID]: {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    KopiaDzielaID: {
+    [config.opusCopyID]: {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
   }, {
-    tableName: 'Rezerwacje',
+    tableName: config.tableName,
     timestamps: false,
   });
 
-  // graph.associate = (models) => {
-  //   graph.hasMany(models.people, {
-  //     foreignKey: 'graphID'
-  //   });
-  //   graph.belongsTo(models.users, {
-  //     as: 'user',
-  //     foreignKey: 'userID'
-  //   });
-  // };
+  reservations.associate = (models) => {
+    reservations.belongsTo(models.user, {
+      as: dictionary('user').tableName,
+      foreignKey: config.userID,
+    });
+    reservations.belongsTo(models.warehouse, {
+      as: dictionary('warehouse').tableName,
+      foreignKey: config.opusCopyID,
+    });
+  };
 
   return reservations;
 };

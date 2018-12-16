@@ -1,37 +1,47 @@
+import dictionary from '../extensions/dictionary';
+
 export default function (sequelize, DataTypes) {
+  const config = dictionary('warehouse');
   const warehouse = sequelize.define('warehouse', {
-    ID: {
+    [config.ID]: {
       type: DataTypes.INTEGER,
       primaryKey: true,
       allowNull: false,
       autoIncrement: true,
     },
-    DzieloID: {
+    [config.opusID]: {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    NosnikID: {
+    [config.carrierID]: {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    CzyWolne: {
+    [config.isAvailable]: {
       type: DataTypes.BOOLEAN,
       allowNull: false,
     },
   }, {
-    tableName: 'Magazyn',
+    tableName: config.tableName,
     timestamps: false,
   });
 
-  // graph.associate = (models) => {
-  //   graph.hasMany(models.people, {
-  //     foreignKey: 'graphID'
-  //   });
-  //   graph.belongsTo(models.users, {
-  //     as: 'user',
-  //     foreignKey: 'userID'
-  //   });
-  // };
+  warehouse.associate = (models) => {
+    warehouse.hasMany(models.loanHistory, {
+      foreignKey: dictionary('loanHistory').opusCopyID,
+    });
+    warehouse.hasMany(models.reservations, {
+      foreignKey: dictionary('reservations').opusCopyID,
+    });
+    warehouse.belongsTo(models.carrier, {
+      as: dictionary('carrier').tableName,
+      foreignKey: config.carrierID,
+    });
+    warehouse.belongsTo(models.opus, {
+      as: dictionary('opus').tableName,
+      foreignKey: config.opusID,
+    });
+  };
 
   return warehouse;
 };

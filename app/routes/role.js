@@ -2,30 +2,12 @@ import db from '../models';
 
 async function getRolesList(request, resolve) {
   try {
-    const roles = await db.roles.findAll({
+    const roles = await db.role.findAll({
       rejectOnEmpty: true,
     });
     return resolve
       .response(roles)
       .type('json')
-      .header('X-test', 'value')
-      .code(200);
-  } catch (error) {
-    return resolve
-      .response(error.message)
-      .code(500);
-  }
-}
-
-async function createSingleRole(request, resolve) {
-  try {
-    const roles = await db.roles.create({
-      Rola: 'test',
-    });
-    return resolve
-      .response(roles)
-      .type('json')
-      .header('X-test', 'value')
       .code(200);
   } catch (error) {
     return resolve
@@ -40,13 +22,6 @@ const getRoles = {
   handler: (request, h) => getRolesList(request, h),
 };
 
-const createRole = {
-  method: 'POST',
-  path: '/roles/create',
-  handler: (request, h) => createSingleRole(request, h),
-};
-
 export default [
   getRoles,
-  createRole,
 ];

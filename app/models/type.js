@@ -1,29 +1,28 @@
+import dictionary from '../extensions/dictionary';
+
 export default function (sequelize, DataTypes) {
+  const config = dictionary('type');
   const type = sequelize.define('type', {
-    ID: {
+    [config.ID]: {
       type: DataTypes.INTEGER,
       primaryKey: true,
       allowNull: false,
       autoIncrement: true,
     },
-    NazwaGatunku: {
+    [config.typeName]: {
       type: DataTypes.STRING,
       allowNull: false,
     },
   }, {
-    tableName: 'Gatunek',
+    tableName: config.tableName,
     timestamps: false,
   });
 
-  // graph.associate = (models) => {
-  //   graph.hasMany(models.people, {
-  //     foreignKey: 'graphID'
-  //   });
-  //   graph.belongsTo(models.users, {
-  //     as: 'user',
-  //     foreignKey: 'userID'
-  //   });
-  // };
+  type.associate = (models) => {
+    type.hasMany(models.opusType, {
+      foreignKey: dictionary('opusType').typeID,
+    });
+  };
 
   return type;
 };

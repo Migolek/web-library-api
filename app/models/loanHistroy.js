@@ -1,35 +1,39 @@
+import dictionary from '../extensions/dictionary';
+
 export default function (sequelize, DataTypes) {
+  const config = dictionary('loanHistory');
   const loanHistory = sequelize.define('loanHistory', {
-    UzytkownikID: {
+    [config.userID]: {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    KopiaDzielaID: {
+    [config.opusCopyID]: {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    DataWypozyczenia: {
+    [config.loanDate]: {
       type: DataTypes.DATE,
       allowNull: true,
     },
-    DataZwrotu: {
+    [config.returnDate]: {
       type: DataTypes.DATE,
       allowNull: true,
     },
   }, {
-    tableName: 'HistoriaWypozyczen',
+    tableName: config.tableName,
     timestamps: false,
   });
 
-  // graph.associate = (models) => {
-  //   graph.hasMany(models.people, {
-  //     foreignKey: 'graphID'
-  //   });
-  //   graph.belongsTo(models.users, {
-  //     as: 'user',
-  //     foreignKey: 'userID'
-  //   });
-  // };
+  loanHistory.associate = (models) => {
+    loanHistory.belongsTo(models.user, {
+      as: dictionary('user').tableName,
+      foreignKey: config.userID,
+    });
+    loanHistory.belongsTo(models.warehouse, {
+      as: dictionary('warehouse').tableName,
+      foreignKey: config.opusCopyID,
+    });
+  };
 
   return loanHistory;
 };

@@ -1,29 +1,28 @@
+import dictionary from '../extensions/dictionary';
+
 export default function (sequelize, DataTypes) {
+  const config = dictionary('role');
   const role = sequelize.define('role', {
-    ID: {
+    [config.ID]: {
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true,
       autoIncrement: true,
     },
-    Rola: {
+    [config.role]: {
       type: DataTypes.STRING,
       allowNull: false,
     },
   }, {
-    tableName: 'Role',
+    tableName: config.tableName,
     timestamps: false,
   });
 
-  // graph.associate = (models) => {
-  //   graph.hasMany(models.people, {
-  //     foreignKey: 'graphID'
-  //   });
-  //   graph.belongsTo(models.users, {
-  //     as: 'user',
-  //     foreignKey: 'userID'
-  //   });
-  // };
+  role.associate = (models) => {
+    role.hasMany(models.userPermissions, {
+      foreignKey: dictionary('userPermissions').roleID,
+    });
+  };
 
   return role;
 };

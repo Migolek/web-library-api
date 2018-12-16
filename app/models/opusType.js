@@ -1,27 +1,31 @@
+import dictionary from '../extensions/dictionary';
+
 export default function (sequelize, DataTypes) {
-  const opus = sequelize.define('opus', {
-    DzieloID: {
+  const config = dictionary('opusType');
+  const opusType = sequelize.define('opusType', {
+    [config.opusID]: {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    GatunekID: {
+    [config.typeID]: {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
   }, {
-    tableName: 'GatunekDziela',
+    tableName: config.tableName,
     timestamps: false,
   });
 
-  // graph.associate = (models) => {
-  //   graph.hasMany(models.people, {
-  //     foreignKey: 'graphID'
-  //   });
-  //   graph.belongsTo(models.users, {
-  //     as: 'user',
-  //     foreignKey: 'userID'
-  //   });
-  // };
+  opusType.associate = (models) => {
+    opusType.belongsTo(models.opus, {
+      as: dictionary('opus').tableName,
+      foreignKey: config.opusID,
+    });
+    opusType.belongsTo(models.type, {
+      as: dictionary('type').tableName,
+      foreignKey: config.typeID,
+    });
+  };
 
-  return opus;
+  return opusType;
 };

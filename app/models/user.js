@@ -1,61 +1,66 @@
+import dictionary from '../extensions/dictionary';
+
 export default function (sequelize, DataTypes) {
+  const config = dictionary('user');
   const user = sequelize.define('user', {
-    ID: {
+    [config.ID]: {
       type: DataTypes.INTEGER,
       primaryKey: true,
       allowNull: false,
       autoIncrement: true,
     },
-    Imie: {
+    [config.firstName]: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    Nazwisko: {
+    [config.lastName]: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    Nick: {
+    [config.nick]: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    Haslo: {
+    [config.password]: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    DataUrodzenia: {
+    [config.dateOfBirth]: {
       type: DataTypes.DATE,
       allowNull: false,
     },
-    PESEL: {
+    [config.pesel]: {
       type: DataTypes.BIGINT,
       allowNull: true,
     },
-    Miejscowosc: {
+    [config.city]: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    Ulica: {
+    [config.street]: {
       type: DataTypes.STRING,
       allowNull: true,
     },
-    NumerDomu: {
+    [config.flatNumber]: {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
   }, {
-    tableName: 'Uzytkownik',
+    tableName: config.tableName,
     timestamps: false,
   });
 
-  // graph.associate = (models) => {
-  //   graph.hasMany(models.people, {
-  //     foreignKey: 'graphID'
-  //   });
-  //   graph.belongsTo(models.users, {
-  //     as: 'user',
-  //     foreignKey: 'userID'
-  //   });
-  // };
+  user.associate = (models) => {
+    user.hasMany(models.userPermissions, {
+      foreignKey: dictionary('userPermissions').userID,
+    });
+    user.hasMany(models.reservations, {
+      foreignKey: dictionary('reservations').userID,
+    });
+    user.hasMany(models.loanHistory, {
+      foreignKey: dictionary('loanHistory').userID,
+    });
+  };
 
   return user;
 };

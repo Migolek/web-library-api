@@ -1,5 +1,5 @@
-import movies from './roles';
+import role from './role';
 
 export default [
-  ...movies,
+  ...role,
 ];

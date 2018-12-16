@@ -1,17 +1,17 @@
 export default function (sequelize, DataTypes) {
-  const roles = sequelize.define('roles', {
+  const carrier = sequelize.define('carrier', {
     ID: {
-      type: DataTypes.BIGINT,
+      type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true,
       autoIncrement: true,
     },
-    Rola: {
+    Typ: {
       type: DataTypes.STRING,
       allowNull: false,
     },
   }, {
-    tableName: 'Role',
+    tableName: 'Nosnik',
     timestamps: false,
   });
 
@@ -25,5 +25,5 @@ export default function (sequelize, DataTypes) {
   //   });
   // };
 
-  return roles;
+  return carrier;
 };

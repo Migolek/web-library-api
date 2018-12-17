@@ -24,20 +24,17 @@ async function addCarrier(request, resolve) {
     const carrier = await db.carrier
       .findOrCreate({
         where: {
-          [config.firstName]: request.payload.firstName,
-          [config.lastName]: request.payload.lastName,
-          [config.dateOfBirth]: await new Date(request.payload.dateOfBirth),
-          [config.growth]: request.payload.growth,
+          [config.type]: request.payload.type,
         },
       })
-      .spread((user, created) => {
-        console.log(user.get({
+      .spread((record, created) => {
+        console.log(record.get({
           plain: true,
         }));
         console.log(created);
       });
     return resolve
-      .response(actor)
+      .response(carrier)
       .type('json')
       .code(200);
   } catch (error) {
@@ -47,15 +44,12 @@ async function addCarrier(request, resolve) {
   }
 }
 
-async function updateActor(request, resolve) {
-  const config = await dictionary('actor');
+async function updateCarrier(request, resolve) {
+  const config = await dictionary('carrier');
   try {
-    const actor = await db.actor
+    const carrier = await db.carrier
       .update({
-        [config.firstName]: request.payload.firstName,
-        [config.lastName]: request.payload.lastName,
-        [config.dateOfBirth]: await new Date(request.payload.dateOfBirth),
-        [config.growth]: request.payload.growth,
+        [config.type]: request.payload.type,
       }, {
         returning: true,
         where: {
@@ -63,7 +57,7 @@ async function updateActor(request, resolve) {
         },
       });
     return resolve
-      .response(actor)
+      .response(carrier)
       .type('json')
       .code(200);
   } catch (error) {
@@ -73,17 +67,17 @@ async function updateActor(request, resolve) {
   }
 }
 
-async function deleteActor(request, resolve) {
-  const config = await dictionary('actor');
+async function deleteCarrier(request, resolve) {
+  const config = await dictionary('carrier');
   try {
-    const actor = await db.actor
+    const carrier = await db.carrier
       .destroy({
         where: {
           [config.ID]: request.payload.ID,
         },
       });
     return resolve
-      .response(actor)
+      .response(carrier)
       .type('json')
       .code(200);
   } catch (error) {
@@ -93,49 +87,43 @@ async function deleteActor(request, resolve) {
   }
 }
 
-const getActors = {
+const getCarriers = {
   method: 'GET',
-  path: '/actors',
-  handler: (request, h) => getActorList(request, h),
+  path: '/carriers',
+  handler: (request, h) => getCarrierList(request, h),
 };
 
-const createSingleActor = {
+const createSingleCarrier = {
   method: 'POST',
-  path: '/actor',
-  handler: (request, h) => addActor(request, h),
+  path: '/carrier',
+  handler: (request, h) => addCarrier(request, h),
   config: {
     validate: {
       payload: Joi.object({
-        firstName: Joi.string().required(),
-        lastName: Joi.string().required(),
-        dateOfBirth: Joi.date(),
-        growth: Joi.number(),
+        type: Joi.string().required(),
       }),
     },
   },
 };
 
-const updateSingleActor = {
+const updateSingleCarrier = {
   method: 'PUT',
-  path: '/actor',
-  handler: (request, h) => updateActor(request, h),
+  path: '/carrier',
+  handler: (request, h) => updateCarrier(request, h),
   config: {
     validate: {
       payload: Joi.object({
         ID: Joi.number().required(),
-        firstName: Joi.string().required(),
-        lastName: Joi.string().required(),
-        dateOfBirth: Joi.date(),
-        growth: Joi.number(),
+        type: Joi.string().required(),
       }),
     },
   },
 };
 
-const deleteSingleActor = {
+const deleteSingleCarrier = {
   method: 'DELETE',
-  path: '/actor',
-  handler: (request, h) => deleteActor(request, h),
+  path: '/carrier',
+  handler: (request, h) => deleteCarrier(request, h),
   config: {
     validate: {
       payload: Joi.object({
@@ -146,8 +134,8 @@ const deleteSingleActor = {
 };
 
 export default [
-  getActors,
-  createSingleActor,
-  updateSingleActor,
-  deleteSingleActor,
+  getCarriers,
+  createSingleCarrier,
+  updateSingleCarrier,
+  deleteSingleCarrier,
 ];

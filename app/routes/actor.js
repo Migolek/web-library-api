@@ -30,8 +30,8 @@ async function addActor(request, resolve) {
           [config.growth]: request.payload.growth,
         },
       })
-      .spread((user, created) => {
-        console.log(user.get({
+      .spread((record, created) => {
+        console.log(record.get({
           plain: true,
         }));
         console.log(created);

@@ -25,6 +25,7 @@ const config = {
     returnDate: 'DataZwrotu',
   },
   opus: {
+    ID: 'ID',
     tableName: 'Dzielo',
     title: 'Tytul',
     yearOfProduction: 'RokProdukcji',

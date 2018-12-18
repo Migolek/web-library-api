@@ -20,6 +20,12 @@ const getRoles = {
   method: 'GET',
   path: '/roles',
   handler: (request, h) => getRolesList(request, h),
+  config: {
+    cors: {
+      origin: ['*'],
+      additionalHeaders: ['cache-control', 'x-requested-with'],
+    },
+  },
 };
 
 export default [

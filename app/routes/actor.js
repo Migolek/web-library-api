@@ -30,8 +30,8 @@ async function addActor(request, resolve) {
           [config.growth]: request.payload.growth,
         },
       })
-      .spread((user, created) => {
-        console.log(user.get({
+      .spread((record, created) => {
+        console.log(record.get({
           plain: true,
         }));
         console.log(created);
@@ -97,6 +97,12 @@ const getActors = {
   method: 'GET',
   path: '/actors',
   handler: (request, h) => getActorList(request, h),
+  config: {
+    cors: {
+      origin: ['*'],
+      additionalHeaders: ['cache-control', 'x-requested-with'],
+    },
+  },
 };
 
 const createSingleActor = {
@@ -104,6 +110,10 @@ const createSingleActor = {
   path: '/actor',
   handler: (request, h) => addActor(request, h),
   config: {
+    cors: {
+      origin: ['*'],
+      additionalHeaders: ['cache-control', 'x-requested-with'],
+    },
     validate: {
       payload: Joi.object({
         firstName: Joi.string().required(),
@@ -120,6 +130,10 @@ const updateSingleActor = {
   path: '/actor',
   handler: (request, h) => updateActor(request, h),
   config: {
+    cors: {
+      origin: ['*'],
+      additionalHeaders: ['cache-control', 'x-requested-with'],
+    },
     validate: {
       payload: Joi.object({
         ID: Joi.number().required(),
@@ -137,6 +151,10 @@ const deleteSingleActor = {
   path: '/actor',
   handler: (request, h) => deleteActor(request, h),
   config: {
+    cors: {
+      origin: ['*'],
+      additionalHeaders: ['cache-control', 'x-requested-with'],
+    },
     validate: {
       payload: Joi.object({
         ID: Joi.number().required(),

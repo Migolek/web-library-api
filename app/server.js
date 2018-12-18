@@ -5,6 +5,10 @@ import routes from './routes';
 const app = Hapi.server({
   host: 'localhost',
   port: 3003,
+}, {
+  routes: {
+    cors: true,
+  },
 });
 
 app.route(routes);

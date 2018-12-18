@@ -97,6 +97,12 @@ const getOpuses = {
   method: 'GET',
   path: '/opuses',
   handler: (request, h) => getOpusList(request, h),
+  config: {
+    cors: {
+      origin: ['*'],
+      additionalHeaders: ['cache-control', 'x-requested-with'],
+    },
+  },
 };
 
 const createSingleOpus = {
@@ -104,6 +110,10 @@ const createSingleOpus = {
   path: '/opus',
   handler: (request, h) => addOpus(request, h),
   config: {
+    cors: {
+      origin: ['*'],
+      additionalHeaders: ['cache-control', 'x-requested-with'],
+    },
     validate: {
       payload: Joi.object({
         title: Joi.string().required(),
@@ -120,6 +130,10 @@ const updateSingleOpus = {
   path: '/opus',
   handler: (request, h) => updateOpus(request, h),
   config: {
+    cors: {
+      origin: ['*'],
+      additionalHeaders: ['cache-control', 'x-requested-with'],
+    },
     validate: {
       payload: Joi.object({
         ID: Joi.number().required(),
@@ -137,6 +151,10 @@ const deleteSingleOpus = {
   path: '/opus',
   handler: (request, h) => deleteOpus(request, h),
   config: {
+    cors: {
+      origin: ['*'],
+      additionalHeaders: ['cache-control', 'x-requested-with'],
+    },
     validate: {
       payload: Joi.object({
         ID: Joi.number().required(),

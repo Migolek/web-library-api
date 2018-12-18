@@ -91,6 +91,12 @@ const getTypes = {
   method: 'GET',
   path: '/types',
   handler: (request, h) => getTypeList(request, h),
+  config: {
+    cors: {
+      origin: ['*'],
+      additionalHeaders: ['cache-control', 'x-requested-with'],
+    },
+  },
 };
 
 const createSingleType = {
@@ -98,6 +104,10 @@ const createSingleType = {
   path: '/type',
   handler: (request, h) => addType(request, h),
   config: {
+    cors: {
+      origin: ['*'],
+      additionalHeaders: ['cache-control', 'x-requested-with'],
+    },
     validate: {
       payload: Joi.object({
         typeName: Joi.string().required(),
@@ -111,6 +121,10 @@ const updateSingleType = {
   path: '/type',
   handler: (request, h) => updateType(request, h),
   config: {
+    cors: {
+      origin: ['*'],
+      additionalHeaders: ['cache-control', 'x-requested-with'],
+    },
     validate: {
       payload: Joi.object({
         ID: Joi.number().required(),
@@ -125,6 +139,10 @@ const deleteSingleType = {
   path: '/type',
   handler: (request, h) => deleteType(request, h),
   config: {
+    cors: {
+      origin: ['*'],
+      additionalHeaders: ['cache-control', 'x-requested-with'],
+    },
     validate: {
       payload: Joi.object({
         ID: Joi.number().required(),

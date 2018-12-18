@@ -107,6 +107,12 @@ const getUsers = {
   method: 'GET',
   path: '/users',
   handler: (request, h) => getUserList(request, h),
+  config: {
+    cors: {
+      origin: ['*'],
+      additionalHeaders: ['cache-control', 'x-requested-with'],
+    },
+  },
 };
 
 const createSingleUser = {
@@ -114,6 +120,10 @@ const createSingleUser = {
   path: '/user',
   handler: (request, h) => addUser(request, h),
   config: {
+    cors: {
+      origin: ['*'],
+      additionalHeaders: ['cache-control', 'x-requested-with'],
+    },
     validate: {
       payload: Joi.object({
         firstName: Joi.string().required(),
@@ -135,6 +145,10 @@ const updateSingleUser = {
   path: '/user',
   handler: (request, h) => updateUser(request, h),
   config: {
+    cors: {
+      origin: ['*'],
+      additionalHeaders: ['cache-control', 'x-requested-with'],
+    },
     validate: {
       payload: Joi.object({
         ID: Joi.number().required(),
@@ -157,6 +171,10 @@ const deleteSingleUser = {
   path: '/user',
   handler: (request, h) => deleteUser(request, h),
   config: {
+    cors: {
+      origin: ['*'],
+      additionalHeaders: ['cache-control', 'x-requested-with'],
+    },
     validate: {
       payload: Joi.object({
         ID: Joi.number().required(),

@@ -91,6 +91,12 @@ const getCarriers = {
   method: 'GET',
   path: '/carriers',
   handler: (request, h) => getCarrierList(request, h),
+  config: {
+    cors: {
+      origin: ['*'],
+      additionalHeaders: ['cache-control', 'x-requested-with'],
+    },
+  },
 };
 
 const createSingleCarrier = {
@@ -98,6 +104,10 @@ const createSingleCarrier = {
   path: '/carrier',
   handler: (request, h) => addCarrier(request, h),
   config: {
+    cors: {
+      origin: ['*'],
+      additionalHeaders: ['cache-control', 'x-requested-with'],
+    },
     validate: {
       payload: Joi.object({
         type: Joi.string().required(),
@@ -111,6 +121,10 @@ const updateSingleCarrier = {
   path: '/carrier',
   handler: (request, h) => updateCarrier(request, h),
   config: {
+    cors: {
+      origin: ['*'],
+      additionalHeaders: ['cache-control', 'x-requested-with'],
+    },
     validate: {
       payload: Joi.object({
         ID: Joi.number().required(),
@@ -125,6 +139,10 @@ const deleteSingleCarrier = {
   path: '/carrier',
   handler: (request, h) => deleteCarrier(request, h),
   config: {
+    cors: {
+      origin: ['*'],
+      additionalHeaders: ['cache-control', 'x-requested-with'],
+    },
     validate: {
       payload: Joi.object({
         ID: Joi.number().required(),

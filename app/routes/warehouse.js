@@ -95,6 +95,12 @@ const getWarehouseObjects = {
   method: 'GET',
   path: '/warehouse-objects',
   handler: (request, h) => getWarehouseList(request, h),
+  config: {
+    cors: {
+      origin: ['*'],
+      additionalHeaders: ['cache-control', 'x-requested-with'],
+    },
+  },
 };
 
 const createSingleWarehouseObject = {
@@ -102,6 +108,10 @@ const createSingleWarehouseObject = {
   path: '/warehouse',
   handler: (request, h) => addWarehouseObject(request, h),
   config: {
+    cors: {
+      origin: ['*'],
+      additionalHeaders: ['cache-control', 'x-requested-with'],
+    },
     validate: {
       payload: Joi.object({
         opusID: Joi.number().required(),
@@ -117,6 +127,10 @@ const updateSingleWarehouseObject = {
   path: '/warehouse',
   handler: (request, h) => updateWarehouseObject(request, h),
   config: {
+    cors: {
+      origin: ['*'],
+      additionalHeaders: ['cache-control', 'x-requested-with'],
+    },
     validate: {
       payload: Joi.object({
         ID: Joi.number().required(),
@@ -133,6 +147,10 @@ const deleteSingleWarehouseObject = {
   path: '/warehouse',
   handler: (request, h) => deleteWarehouseObject(request, h),
   config: {
+    cors: {
+      origin: ['*'],
+      additionalHeaders: ['cache-control', 'x-requested-with'],
+    },
     validate: {
       payload: Joi.object({
         ID: Joi.number().required(),

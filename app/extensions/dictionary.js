@@ -67,6 +67,7 @@ const config = {
   },
   userPermissions: {
     tableName: 'UprawnieniaUzytkownikow',
+    ID: 'ID',
     userID: 'UzytkownikID',
     roleID: 'RoleID',
   },

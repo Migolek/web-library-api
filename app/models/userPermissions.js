@@ -1,8 +1,14 @@
 import dictionary from '../extensions/dictionary';
 
 export default function (sequelize, DataTypes) {
-  const config = dictionary('warehouse');
+  const config = dictionary('userPermissions');
   const userPermissions = sequelize.define('userPermissions', {
+    [config.ID]: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      allowNull: false,
+      autoIncrement: true,
+    },
     [config.userID]: {
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -17,12 +23,14 @@ export default function (sequelize, DataTypes) {
   });
 
   userPermissions.associate = (models) => {
+    const dictionaryRole = dictionary('role');
     userPermissions.belongsTo(models.role, {
-      as: dictionary('role').tableName,
+      as: dictionaryRole.tableName,
       foreignKey: config.roleID,
     });
+    const dictionaryUser = dictionary('user');
     userPermissions.belongsTo(models.user, {
-      as: dictionary('user').tableName,
+      as: dictionaryUser.tableName,
       foreignKey: config.userID,
     });
   };

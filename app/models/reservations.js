@@ -3,6 +3,12 @@ import dictionary from '../extensions/dictionary';
 export default function (sequelize, DataTypes) {
   const config = dictionary('reservations');
   const reservations = sequelize.define('reservations', {
+    [config.ID]: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      primaryKey: true,
+      autoIncrement: true,
+    },
     [config.userID]: {
       type: DataTypes.INTEGER,
       allowNull: false,

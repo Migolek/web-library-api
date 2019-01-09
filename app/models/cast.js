@@ -3,6 +3,12 @@ import dictionary from '../extensions/dictionary';
 export default function (sequelize, DataTypes) {
   const config = dictionary('cast');
   const cast = sequelize.define('cast', {
+    [config.ID]: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      primaryKey: true,
+      autoIncrement: true,
+    },
     [config.opusID]: {
       type: DataTypes.INTEGER,
       allowNull: false,

@@ -14,19 +14,21 @@ const config = {
   },
   cast: {
     tableName: 'Obsada',
+    ID: 'ID',
     opusID: 'DzieloID',
     actorID: 'AktorID',
   },
   loanHistory: {
     tableName: 'HistoriaWypozyczen',
+    ID: 'ID',
     userID: 'UzytkownikID',
     opusCopyID: 'KopiaDzielaID',
     loanDate: 'DataWypozyczenia',
     returnDate: 'DataZwrotu',
   },
   opus: {
-    ID: 'ID',
     tableName: 'Dzielo',
+    ID: 'ID',
     title: 'Tytul',
     yearOfProduction: 'RokProdukcji',
     director: 'Rezyser',
@@ -34,11 +36,13 @@ const config = {
   },
   opusType: {
     tableName: 'GatunekDziela',
+    ID: 'ID',
     opusID: 'DzieloID',
     typeID: 'GatunekID',
   },
   reservations: {
     tableName: 'Rezerwacje',
+    ID: 'ID',
     userID: 'UzytkownikID',
     opusCopyID: 'KopiaDzielaID',
   },

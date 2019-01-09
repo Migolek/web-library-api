@@ -6,9 +6,10 @@ const config = {
   host: 'localhost',
   dialect: 'postgres',
   operatorsAliases: false,
-  database: 'postgres',
+  database: 'web_library',
   username: 'postgres',
   password: 'postgres',
+  // logging: false,
 
   pool: {
     max: 5,
@@ -45,5 +46,6 @@ Object.keys(db).forEach((modelName) => {
 
 db.connection = connection;
 db.Sequelize = Sequelize;
+db.Op = Sequelize.Op;
 
 export default db;

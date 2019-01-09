@@ -4,7 +4,7 @@ import routes from './routes';
 
 const app = Hapi.server({
   host: 'localhost',
-  port: 3003,
+  port: 3001,
 }, {
   routes: {
     cors: true,
@@ -13,7 +13,7 @@ const app = Hapi.server({
 
 app.route(routes);
 
-function start() {
+async function start() {
   db.connection.sync().then(() => {
     try {
       app.start();

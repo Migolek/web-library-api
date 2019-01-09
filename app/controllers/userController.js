@@ -133,8 +133,29 @@ async function deleteUser(request, resolve) {
   }
 }
 
+async function getSingleUserInfo(request, resolve) {
+  const config = await dictionary('user');
+  try {
+    const user = await db.user
+      .findOne({
+        where: {
+          [config.ID]: request.params.userID,
+        },
+      });
+    return resolve
+      .response(user)
+      .type('json')
+      .code(200);
+  } catch (error) {
+    return resolve
+      .response(error.message)
+      .code(500);
+  }
+}
+
 export default {
   getUserList,
+  getSingleUserInfo,
   addUser,
   updateUser,
   deleteUser,

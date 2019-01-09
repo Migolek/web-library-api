@@ -29,6 +29,7 @@ async function authUser(login, password) {
   });
   return {
     authorized: true,
+    userID: user[configUser.ID],
     role: role[configRoles.role],
   };
 }

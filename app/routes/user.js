@@ -13,6 +13,18 @@ const getUsers = {
   },
 };
 
+const getUserInfo = {
+  method: 'GET',
+  path: '/users/{userID}',
+  handler: (request, h) => userController.getSingleUserInfo(request, h),
+  config: {
+    cors: {
+      origin: ['*'],
+      additionalHeaders: ['cache-control', 'x-requested-with'],
+    },
+  },
+};
+
 const createSingleUser = {
   method: 'POST',
   path: '/user',
@@ -78,6 +90,7 @@ const deleteSingleUser = {
 
 export default [
   getUsers,
+  getUserInfo,
   createSingleUser,
   updateSingleUser,
   deleteSingleUser,

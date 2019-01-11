@@ -46,3 +46,22 @@ export async function getWarehouseListForOpus(request, resolve) {
       .code(500);
   }
 }
+
+export async function reserveOpus(request, resolve) {
+  try {
+    const warehouse = await db.warehouse.update({
+      rejectOnEmpty: true,
+      where: {
+        
+      },
+    });
+    return resolve
+      .response(warehouse)
+      .type('json')
+      .code(200);
+  } catch (error) {
+    return resolve
+      .response(error.message)
+      .code(500);
+  }
+}

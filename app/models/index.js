@@ -9,7 +9,7 @@ const config = {
   database: 'web_library',
   username: 'postgres',
   password: 'postgres',
-  // logging: false,
+  logging: false,
 
   pool: {
     max: 5,

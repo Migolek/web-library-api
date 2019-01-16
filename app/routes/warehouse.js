@@ -1,4 +1,4 @@
-import { getWarehouseList, getWarehouseListForOpus } from '../controllers/warehouseController';
+import { getWarehouseList, getWarehouseListForOpus, reserveCarriersList } from '../controllers/warehouseController';
 
 const getWarehouseObjects = {
   method: 'GET',
@@ -24,7 +24,20 @@ const getWarehouseObject = {
   },
 };
 
+const reserveCarriers = {
+  method: 'PUT',
+  path: '/warehouse/reserve',
+  handler: (request, h) => reserveCarriersList(request, h),
+  config: {
+    cors: {
+      origin: ['*'],
+      additionalHeaders: ['cache-control', 'x-requested-with'],
+    },
+  },
+};
+
 export default [
   getWarehouseObjects,
   getWarehouseObject,
+  reserveCarriers,
 ];

@@ -4,9 +4,10 @@
   "description": "API for web library",
   "main": "./app/server.js",
   "scripts": {
-    "start": "nodemon --exec npm run serve:dev",
+    "start": "nodemon --exec npm run serve:dev --inspect=0.0.0.0:9229",
     "serve:dev": "npm run lint && babel-node ./app/server.js",
-    "lint": "eslint ./app"
+    "lint": "eslint ./app",
+    "build": "build"
   },
   "repository": {
     "type": "git",
